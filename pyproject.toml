@@ -1,0 +1,64 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "vreader"
+version = "1.1.0"
+description = "🎬 智能视频内容提取 — 场景检测抽帧 + 语音转文字 / Smart video content extraction with scene detection + speech-to-text"
+readme = "README.md"
+license = {text = "MIT"}
+authors = [
+    {name = "Gao Yuanlin", email = "2804746144@qq.com"},
+]
+keywords = ["video", "analysis", "ffmpeg", "whisper", "scene-detection", "transcription", "content-extraction"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Video",
+    "Topic :: Scientific/Engineering :: Artificial Intelligence",
+]
+requires-python = ">=3.9"
+
+# No Python runtime dependencies (ffmpeg & whisper-cli are system tools).
+# Add optional extras for convenience.
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov",
+]
+
+[project.urls]
+Homepage = "https://github.com/gaoyuanlin/video-reader"
+Repository = "https://github.com/gaoyuanlin/video-reader"
+Issues = "https://github.com/gaoyuanlin/video-reader/issues"
+
+[project.scripts]
+vreader = "vreader.cli:main"
+
+# ── setuptools ────────────────────────────────────────────────────────────────
+# Fixed: packages live under src/vreader, so we tell setuptools to look there.
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+vreader = ["py.typed"]
+
+# ── pytest ────────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-v"
+
+# ── coverage ──────────────────────────────────────────────────────────────────
+[tool.coverage.run]
+source = ["src/vreader"]
+omit = ["tests/*"]
